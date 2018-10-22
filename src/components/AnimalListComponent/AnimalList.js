@@ -16,6 +16,8 @@ const animalList = (props) => {
                             color={animal.color}
                             notes={animal.notes}
                         />
+                        <button>Update</button>
+                        <button onClick={() => props.onDeleteAnimal(animal.id)}>Delete</button>
                     </li>
                 )
             })}
