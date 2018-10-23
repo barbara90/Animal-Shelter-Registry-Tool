@@ -21,7 +21,7 @@ class CreateAnimal extends Component {
                 <button onClick={() => this.props.onRegister({ name: this.nameInput.value,
                     dateOfBirth: this.dateOfBirthInput.value, registrationDate: this.registrationDateInput.value,
                     breed: this.breedInput.value, chipId: this.chipIdInput.value, color: this.colorInput.value,
-                    notes: this.notesInput.value})}>Register</button>
+                    notes: this.notesInput.value, adopted: false})}>Register</button>
             </div>
         );
     }
