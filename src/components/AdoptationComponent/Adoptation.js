@@ -20,12 +20,13 @@ class ownerForm extends Component {
       },
       notes: this.notesInput.value
     })
+    this.props.history.push('/adopted');
   }
 
   render() {
     return (
       <div className="adoptation">
-        <Animal animal={this.props.animals.find(animal => animal.id === +this.props.match.params.animalId)} />
+        <Animal animal={this.props.animals.find(animal => animal._id == this.props.match.params.animalId)} />
         <form onSubmit={(event) => this.onSubmit(event)}>
           <label htmlFor="name">Name</label>
           <input

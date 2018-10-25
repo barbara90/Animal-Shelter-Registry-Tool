@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {BrowserRouter, Route, Link} from 'react-router-dom';
+import axios from 'axios';
+
 import './App.css';
 
 import AnimalList from './components/AnimalListComponent/AnimalList';
@@ -10,55 +12,29 @@ import Adoptation from './components/AdoptationComponent/Adoptation';
 class App extends Component {
   state = {
     selectedFilter: 'all',
-    animals: [{
-      id: 0,
-      ownerId: 0,
-      adopted: true,
-      name: 'Cili',
-      dateOfBirth: '2012-01-02',
-      registrationDate: '2018-01-02',
-      breed: 'cat',
-      chipId: '',
-      color: 'white',
-      notes: ''
-    },
-    {
-      id: 1, 
-      adopted: false,
-      name: 'Pajti',
-      dateOfBirth: '2012-01-02',
-      registrationDate: '2018-01-02',
-      breed: 'dog',
-      chipId: 'jdfh643532dkls',
-      color: 'white',
-      notes: ''
-    }],
-    owners: [{
-      id: 0,
-      name: 'Owner Test',
-      contact: {
-        phoneNumber: '06703949119',
-        address: {
-          postCode: '6723',
-          city: 'Szeged',
-          street: 'Street',
-          houseNumber: '69'
-        }
-      },
-      notes: ''
-    }]  
+    animals: [],
+    owners: []
   };
 
+  componentDidMount() {
+    axios.get('http://localhost:3001/animal').then(response => {
+      this.setState({ animals: response.data });
+    });
+    axios.get('http://localhost:3001/owner').then(response => {
+      this.setState({ owners: response.data });
+    });
+  }
+
   onRegister = (animal) => {
-    this.setState({
-      animals: [...this.state.animals, animal]
-    })
+    axios.post('http://localhost:3001/animal', animal).then(response => this.setState({
+      animals: [...this.state.animals, response.data]
+    }));
   }
 
   onDeleteAnimal = (id) => {
-    this.setState({
-      animals: this.state.animals.filter(animal => animal.id !== id)
-    })
+    axios.delete(`http://localhost:3001/animal/${id}`).then(() => this.setState({
+      animals: this.state.animals.filter(animal => animal._id !== id)
+    }));
   }
 
   onAnimalFilterChange = (event) => {
@@ -66,27 +42,29 @@ class App extends Component {
   }
 
   onAdopt = (animalId, owner) => {
-    this.setState({
-      owners: [...this.state.owners, owner],
+    const adoptedAnimal = {
+      ...this.state.animals.find(animal => animal._id == animalId),
+      adopted: true,
+      ownerId: owner._id
+    }
+    axios.post('http://localhost:3001/owner', owner).then(response => this.setState({
+      owners: [...this.state.owners, response.data],
+    }));
+    axios.post('http://localhost:3001/animal', adoptedAnimal).then(response => this.setState({
       animals: [
-        ...this.state.animals.filter(animal => animal.id !== +animalId),
-        {
-          ...this.state.animals.find(animal => animal.id === +animalId),
-          adopted: true,
-          ownerId: owner.id
-        }
-      ]  
-    });
+        ...this.state.animals.filter(animal => animal._id != animalId),
+        response.data
+      ]
+    }))
   }
 
   onEdit = (editedAnimalId, editedAnimal) => {
-    console.log('onEdit');
-    this.setState({
+    axios.patch(`http://localhost:3001/animal/${editedAnimalId}`, editedAnimal).then(response => this.setState({
       animals: [
-        ...this.state.animals.filter(animal => animal.id !== editedAnimalId),
-        editedAnimal
+        ...this.state.animals.filter(animal => animal._id !== editedAnimalId),
+        response.data
       ]
-    });
+    }));
   }
 
   render() {

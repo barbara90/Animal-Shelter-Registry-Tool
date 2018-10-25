@@ -15,7 +15,8 @@ class AnimalForm extends Component {
         color: this.colorInput.value,
         notes: this.notesInput.value,
         adopted: false
-      })
+      });
+      this.props.history.push('/');
     } else {
       this.props.onEdit(editedAnimalId, {
         name: this.nameInput.value,
@@ -26,7 +27,8 @@ class AnimalForm extends Component {
         color: this.colorInput.value,
         notes: this.notesInput.value,
         adopted: false
-      })
+      });
+      this.props.history.push('/');
     }
   }
 
@@ -36,8 +38,8 @@ class AnimalForm extends Component {
     let registrationButton;
     let editButton;
     if (this.props.animals) {
-      editedAnimalId = +this.props.match.params.animalId;
-      animal = this.props.animals.find(animal => animal.id === editedAnimalId);
+      editedAnimalId = this.props.match.params.animalId;
+      animal = this.props.animals.find(animal => animal._id === editedAnimalId);
     }
     if (!animal) {
       registrationButton = <button id="submit" value="Submit">Register</button>
