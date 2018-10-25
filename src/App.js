@@ -42,24 +42,31 @@ class App extends Component {
   }
 
   onAdopt = (animalId, owner) => {
-    const adoptedAnimal = {
-      ...this.state.animals.find(animal => animal._id == animalId),
-      adopted: true,
-      ownerId: owner._id
-    }
-    axios.post('http://localhost:3001/owner', owner).then(response => this.setState({
-      owners: [...this.state.owners, response.data],
-    }));
-    axios.post('http://localhost:3001/animal', adoptedAnimal).then(response => this.setState({
-      animals: [
-        ...this.state.animals.filter(animal => animal._id != animalId),
-        response.data
-      ]
-    }))
+    axios
+      .post('http://localhost:3001/owner', owner)
+      .then(response => {
+        const newOwner = response.data;
+        this.setState({ owners: [...this.state.owners, response.data] });
+        const adoptedAnimal = {
+          ...this.state.animals.find(animal => animal._id == animalId),
+          adopted: true,
+          ownerId: newOwner._id
+        }
+        console.log(adoptedAnimal);
+        axios.put(`http://localhost:3001/animal/${adoptedAnimal._id}`, adoptedAnimal).then(response => {
+          console.log('response', response)
+          this.setState({
+            animals: [
+              ...this.state.animals.filter(animal => animal._id != animalId),
+              response.data
+            ]
+          })
+        })
+      });
   }
 
   onEdit = (editedAnimalId, editedAnimal) => {
-    axios.patch(`http://localhost:3001/animal/${editedAnimalId}`, editedAnimal).then(response => this.setState({
+    axios.put(`http://localhost:3001/animal/${editedAnimalId}`, editedAnimal).then(response => this.setState({
       animals: [
         ...this.state.animals.filter(animal => animal._id !== editedAnimalId),
         response.data

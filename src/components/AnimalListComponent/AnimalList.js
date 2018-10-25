@@ -27,7 +27,7 @@ const animalList = props => {
             <div className="animal-list__controls">
               <Link to={`/adoptation/${animal._id}`}>Adopt</Link>
               <Link to={`/edit-animal/${animal._id}`}>Update</Link>
-              <button onClick={() => props.onDeleteAnimal(animal.id)}>Delete</button>
+              <button onClick={() => props.onDeleteAnimal(animal._id)}>Delete</button>
             </div>
           </li>
         )
