@@ -1,0 +1,13 @@
+.owner {
+    display: inline-block;
+    padding-left: 16px;
+}
+
+.owner__name {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.owner__data-title {
+    font-weight: bold;
+}

@@ -1,17 +1,21 @@
 import React from 'react';
 
-const animal = (props) => {
-    return(
-        <div>
-            <span>{props.name}</span>
-            <span>{props.dateOfBirth}</span>
-            <span>{props.registrationDate}</span>
-            <span>{props.breed}</span>
-            <span>{props.chipId}</span>
-            <span>{props.color}</span>
-            <span>{props.notes}</span>
-        </div>
-    );
+import './Animal.css';
+
+const animal = props => {
+  const animal = props.animal;
+
+  return (
+    <div className="animal">
+      <div className="animal__name">{animal.name}</div>
+      <div><span className="animal__data-title">Date of birth: </span>{animal.dateOfBirth}</div>
+      <div><span className="animal__data-title">Date of registration: </span>{animal.registrationDate}</div>
+      <div><span className="animal__data-title">Breed: </span>{animal.breed}</div>
+      <div><span className="animal__data-title">ChipId: </span>{animal.chipId}</div>
+      <div><span className="animal__data-title">Color: </span>{animal.color}</div>
+      <div><span className="animal__data-title">Notes: </span>{animal.notes}</div>
+    </div>
+  );
 };
 
 export default animal;
