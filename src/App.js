@@ -26,9 +26,13 @@ class App extends Component {
   }
 
   onRegister = (animal) => {
-    axios.post('http://localhost:3001/animal', animal).then(response => this.setState({
-      animals: [...this.state.animals, response.data]
-    }));
+    axios.post('http://localhost:3001/animal', animal).then(response => {
+      if (typeof response.data !== 'undefined' && response.data.length > 0) {
+        this.setState({
+          animals: [...this.state.animals, response.data]
+        });
+      };
+    });
   }
 
   onDeleteAnimal = (id) => {
