@@ -12,12 +12,10 @@ const animalList = props => {
       {props.animals.map(animal => {
         const animalComponent = <Animal animal={animal} />;
         if (animal.adopted) {
-          const owner = props.owners.find(owner => owner.id === animal.ownerId);
-          const ownerComponent = <Owner owner={owner} />;
           return (
             <li key={animal.id}>
               {animalComponent}
-              {ownerComponent}
+              <Owner owner={props.owners.find(owner => owner.id === animal.ownerId)} />;
             </li>
           )
         }

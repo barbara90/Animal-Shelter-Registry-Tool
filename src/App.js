@@ -17,11 +17,11 @@ class App extends Component {
   };
 
   componentDidMount() {
-    axios.get('http://localhost:3001/animal').then(response => {
-      this.setState({ animals: response.data });
-    });
     axios.get('http://localhost:3001/owner').then(response => {
       this.setState({ owners: response.data });
+    });
+    axios.get('http://localhost:3001/animal').then(response => {
+      this.setState({ animals: response.data });
     });
   }
 
@@ -56,9 +56,7 @@ class App extends Component {
           adopted: true,
           ownerId: newOwner._id
         }
-        console.log(adoptedAnimal);
         axios.put(`http://localhost:3001/animal/${adoptedAnimal._id}`, adoptedAnimal).then(response => {
-          console.log('response', response)
           this.setState({
             animals: [
               ...this.state.animals.filter(animal => animal._id != animalId),
