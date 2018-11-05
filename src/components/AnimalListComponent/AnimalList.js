@@ -15,7 +15,7 @@ const animalList = props => {
           return (
             <li key={animal.id}>
               {animalComponent}
-              <Owner owner={props.owners.find(owner => owner.id === animal.ownerId)} />;
+              <Owner owner={props.owners.find(owner => owner._id == animal.ownerId)} />
             </li>
           )
         }
