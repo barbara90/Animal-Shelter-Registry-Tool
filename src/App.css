@@ -1,15 +1,18 @@
 .App {
   width: 980px;
   margin: 16px auto 0;
+  color: #2a363b;
 }
 
 .top-navigation {
-  border: 1px black solid;
+  border: 1px #2a363b solid;
   border-radius: 3px;
   padding: 16px;
   margin-bottom: 16px;
+  background-color: #99b998;
 }
 
 .top-navigation a {
   padding-right: 16px;
+  color: #2a363b;
 }

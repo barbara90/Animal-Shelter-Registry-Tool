@@ -1,7 +1,13 @@
-.create-animal input, select {
-  display: block;
-}
 
 .create-animal input:invalid {
   border: 2px solid red;
+}
+
+.create-animal input, select {
+  display: block;
+  color:#2a363b;
+}
+
+.create-animal label, button {
+  color:#2a363b;
 }

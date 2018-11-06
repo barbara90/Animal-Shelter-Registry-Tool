@@ -1,16 +1,19 @@
 .animal {
-    border: 1px solid black;
+    border: 1px solid #2a363b;
     border-radius: 3px;
     padding: 16px;
     width: 450px;
     display: inline-block;
+    background-color: #f9cdae;
 }
 
 .animal__name {
     font-size: 26px;
     font-weight: bold;
+    color: #2a363b;
 }
 
 .animal__data-title {
     font-weight: bold;
+    color: #2a363b;
 }
